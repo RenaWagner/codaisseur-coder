@@ -2,12 +2,9 @@
 import React, { useEffect } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchNext5Posts,
-  postsFetched,
-  startLoading,
-} from "../store/feed/action";
+import { fetchNext5Posts } from "../store/feed/action";
 import { selectFeedLoading, selectFeedPosts } from "../store/feed/selectors";
+import { Link } from "react-router-dom";
 
 // const API_URL = `https://codaisseur-coders-network.herokuapp.com/posts`;
 export default function PostsFeed() {
@@ -43,7 +40,9 @@ export default function PostsFeed() {
         postsLoaded.map((post) => {
           return (
             <div key={post.id}>
-              <h3>{post.title}</h3>
+              <Link to={`/post/${post.id}`}>
+                <h3>{post.title}</h3>
+              </Link>
               <p>{moment(post.createdAt).format("DD-MM-YYYY")}</p>
               {post.tags.map((tag) => {
                 return <React.Fragment key={tag.id}>{tag.tag} </React.Fragment>;
